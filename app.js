@@ -9,6 +9,17 @@ const connection = require("./database/mysqlDB");
 
 const app = express();
 
+const corsOptions = {
+  origin: 'http://localhost:4200',
+  methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Referer', 'Accept', 'User-Agent'],
+  exposedHeaders: ['Authorization'],
+  credentials: true,
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+};
+app.use(cors(corsOptions));
+
 // database init
 function mysqlConnect() {
   global.connection = mysql.createConnection(connection);
@@ -36,7 +47,6 @@ const userRoutes = require("./routes/user");
 
 // Middlewares
 app.use(bodyParser.json());
-app.use(cors());
 
 // Routes
 app.use("/api", userRoutes);

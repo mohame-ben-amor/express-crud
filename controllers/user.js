@@ -1,17 +1,19 @@
 const User = require("../models/user");
 
 exports.createUser = async (req, res) => {
-  if (!req.body.firstName || !req.body.lastName || !req.body.email) {
+  if (!req.body.firstName || !req.body.lastName || !req.body.email || !req.body.quantite || !req.body.code_carte) {
     return res.status(422).json({
       firstName: "firstname is required",
       lastName: "firstname is required",
       email: "email is required",
+      quantite: "quantite is required",
+      code_carte: "code carte is required",
     });
   }
   const user = new User(req.body);
   User.create(user, function (err, user) {
     if (err) {
-      return res.status(403).send(err);
+      return res.status(403).send(req.body);
     }
     res.json(user);
   });

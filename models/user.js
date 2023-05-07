@@ -4,12 +4,12 @@ const User = function (user) {
   this.firstName = user.firstName;
   this.lastName = user.lastName;
   this.email = user.email;
-  this.createdAt = new Date();
-  this.updatedAt = new Date();
+  this.quantite = user.quantite;
+  this.code_carte = user.code_carte;
 };
 
 User.create = function (user, result) {
-  connection.query("INSERT INTO users set ?", user, function (err, res) {
+  connection.query("INSERT INTO `table` set ?", user, function (err, res) {
     if (err) {
       result(err, null);
     } else {
@@ -19,7 +19,7 @@ User.create = function (user, result) {
 };
 
 User.read = function (result) {
-  connection.query("SELECT * FROM users", (err, res) => {
+  connection.query("SELECT * FROM `table`", (err, res) => {
     if (err) {
       result(err, null);
     } else {
@@ -29,7 +29,7 @@ User.read = function (result) {
 };
 
 User.update = function (id, user, result) {
-  connection.query("UPDATE users SET ? WHERE _id = ?", [user, id], function (
+  connection.query("UPDATE `table` SET ? WHERE _id = ?", [user, id], function (
     err,
     res
   ) {
@@ -42,7 +42,7 @@ User.update = function (id, user, result) {
 };
 
 User.delete = function (id, result) {
-  connection.query("DELETE FROM users WHERE _id = ?", [id], function (
+  connection.query("DELETE FROM `table` WHERE _id = ?", [id], function (
     err,
     res
   ) {
